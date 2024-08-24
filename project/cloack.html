@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        /* Container for the clock display */
+        #id1 {
+            width: 55%;
+            height: 500px;
+            margin: auto;
+            position: relative;
+            background-color: rgb(211, 206, 206);
+            color: rgb(36, 34, 34);
+            right: 0;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 100px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        /* Start and Stop button container */
+        #stop {
+            position: absolute;
+            top: 75%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 350px;
+            height: 100px;
+            border-radius: 10px;
+            background-color: rgb(208, 240, 94);
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        /* Start button styling */
+        #p1 {
+            width: 100px;
+            height: 50px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        /* Stop button styling */
+        #p2 {
+            width: 100px;
+            height: 50px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        /* Button hover effect */
+        #p1:hover, #p2:hover {
+            background-color: darkgray;
+        }
+
+        /* Page title styling */
+        h2 {
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>DIGITAL CLOCK</h2>
+
+    <!-- Main clock container -->
+    <div class="p1" id="id1">
+        <!-- Display area for the clock -->
+        <h3 id="disp"></h3>
+
+        <!-- Container for buttons -->
+        <div id="stop">
+            <button id="p1" onclick="start()">Start</button>
+            <button id="p2" onclick="stop()">Stop</button>
+        </div>
+    </div>
+
+    <script>
+        // Declare a global variable for interval control
+        var myInterval;
+
+        // Function to start the clock
+        function start() {
+            // Set an interval to update the time every second
+            myInterval = setInterval(st, 1000);
+
+            // Function to get the current time and display it
+            function st() {
+                let d = new Date();
+                let hours = d.getHours();
+                let minutes = d.getMinutes();
+                let seconds = d.getSeconds();
+                let period = "AM";
+
+                // Convert from 24-hour format to 12-hour format
+                if (hours >= 12) {
+                    period = "PM";
+                    if (hours > 12) {
+                        hours = hours - 12;
+                    }
+                }
+
+                // Add leading zeros for single-digit minutes and seconds
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                // Display the formatted time in the HTML element with id 'disp'
+                document.getElementById("disp").innerHTML = hours + " : " + minutes + " : " + seconds + " " + period;
+            }
+        }
+
+        // Function to stop the clock
+        function stop() {
+            clearInterval(myInterval);  // Stop the interval
+        }
+    </script>
+
+</body>
+</html>
